@@ -1,12 +1,11 @@
 <template>
     <div class="row">
-        <div class="col-2"></div>
-        <div class="col-7">
+        <div class="col-8">
             <instagram-card />
             <instagram-card />
         </div>
-        <div class="col-3">
-            ... ovdje ide desni stupac!
+        <div class="col-4">
+            Sidebar
         </div>
     </div>
 </template>

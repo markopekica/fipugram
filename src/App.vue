@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <nav id="nav" class="navbar navbar-expand-lg navbar-light">
+        <nav id="nav" class="navbar navbar-expand-md navbar-light">
             <a class="navbar-brand" href="#">
                 <img src="@/assets/fipu_logo.png" height="40" class="d-inline-block align-top" alt="" loading="lazy" />
             </a>
@@ -16,8 +16,11 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarToggler">
+                <form id="search" class="navbar-form form-inline ml-auto">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Pretraga" aria-label="Search" />
+                </form>
                 <!-- Image and text -->
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <router-link to="/" class="nav-link">Home</router-link>
                     </li>
@@ -28,9 +31,6 @@
                         <router-link to="/signup" class="nav-link">Sign up</router-link>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Pretraga" aria-label="Search" />
-                </form>
             </div>
         </nav>
 
@@ -61,5 +61,10 @@
             color: #42b983;
         }
     }
+}
+
+#search {
+    display: block;
+    text-align: center;
 }
 </style>
