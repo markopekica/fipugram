@@ -1,9 +1,9 @@
 <template>
     <div id="app">
         <nav id="nav" class="navbar navbar-expand-md navbar-light">
-            <a class="navbar-brand" href="#">
+            <router-link to="/" class="navbar-brand">
                 <img src="@/assets/fipu_logo.png" height="40" class="d-inline-block align-top" alt="" loading="lazy" />
-            </a>
+            </router-link>
             <button
                 class="navbar-toggler"
                 type="button"
@@ -21,9 +21,6 @@
                 </form>
                 <!-- Image and text -->
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <router-link to="/" class="nav-link">Home</router-link>
-                    </li>
                     <li class="nav-item">
                         <router-link to="/login" class="nav-link">Login</router-link>
                     </li>
