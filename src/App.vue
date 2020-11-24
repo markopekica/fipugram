@@ -1,12 +1,38 @@
 <template>
     <div id="app">
-        <div id="nav">
-            <router-link to="/">Home</router-link>
-            |
-            <router-link to="/login">Login</router-link>
-            |
-            <router-link to="/signup">Sign up</router-link>
-        </div>
+        <nav id="nav" class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="#">
+                <img src="@/assets/fipu_logo.png" height="40" class="d-inline-block align-top" alt="" loading="lazy" />
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarToggler"
+                aria-controls="navbarToggler"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <!-- Image and text -->
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <router-link to="/" class="nav-link">Home</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/login" class="nav-link">Login</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/signup" class="nav-link">Sign up</router-link>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Pretraga" aria-label="Search" />
+                </form>
+            </div>
+        </nav>
 
         <div class="container">
             <router-view />
