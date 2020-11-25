@@ -7,6 +7,8 @@
             <img class="card-img-top" :src="info.url" alt="slika" />
         </div>
         <div class="card-footer text-muted">
+            {{ info.author }}
+            <br>
             {{ info.time }}
         </div>
     </div>
