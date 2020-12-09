@@ -5,8 +5,8 @@
     <div class="row">
       <div class="col-2"></div>
       <div class="col-8">
-        <div style="color:red;">
-          eh: {{ greska }}
+        <div v-if="greska" style="color:red;">
+          Watch out <br> {{ greska }}
         </div>
         <form>
           <div class="form-group">
