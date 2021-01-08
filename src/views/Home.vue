@@ -1,6 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-8">
+    <div class="col-2"></div>
+    <div class="col-6">
       <instagram-card
         v-for="card in filteredCards"
         :key="card.url"

@@ -1,5 +1,6 @@
 export default {
     searchTerm: '',
+    currentUser: null,
     isThatTrue: '?',
     ime: "",
     prezime: "",

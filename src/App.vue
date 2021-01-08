@@ -24,7 +24,7 @@
       <div class="collapse navbar-collapse" id="navbarToggler">
         <form id="search" class="navbar-form form-inline ml-auto">
           <input
-            v-model="searchTerm"
+            v-model="store.searchTerm"
             class="form-control mr-sm-2"
             type="search"
             placeholder="Search"
@@ -33,13 +33,17 @@
         </form>
         <!-- Image and text -->
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <li v-if="!store.currentUser" class="nav-item">
             <router-link to="/login" class="nav-link"
-              >Login {{ isThatTrue }}</router-link
+              >Login
+              <!-- {{ isThatTrue }} --></router-link
             >
           </li>
-          <li class="nav-item">
+          <li v-if="!store.currentUser" class="nav-item">
             <router-link to="/signup" class="nav-link">Sign up</router-link>
+          </li>
+          <li v-if="store.currentUser" class="nav-item">
+            <a href="#" @click="logout()" class="nav-link">Logout</a>
           </li>
         </ul>
       </div>
@@ -54,11 +58,45 @@
 
 <script>
 import store from "@/store.js";
+import { firebase } from "@/firebase";
+import router from "@/router";
+
+firebase.auth().onAuthStateChanged((user) => {
+  const currentRoute = router.currentRoute;
+  if (user) {
+    //user logged in
+    console.log("user: " + user.email);
+    store.currentUser = user.email;
+
+    if (!currentRoute.meta.needsUser) {
+      router.push({ name: 'home' });
+    }
+  } else {
+    console.log("no user");
+    store.currentUser = null;
+
+    if (currentRoute.meta.needsUser) {
+      router.push({ name: 'login' });
+    }
+  }
+});
 
 export default {
   name: "app",
   data() {
-    return store;
+    return {
+      store,
+    };
+  },
+  methods: {
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push({ name: "login" });
+        });
+    },
   },
 };
 </script>
@@ -73,6 +111,7 @@ export default {
 }
 #nav {
   padding: 30px;
+  display: flex;
   a {
     font-weight: bold;
     color: #2c3e50;
@@ -80,9 +119,5 @@ export default {
       color: #42b983;
     }
   }
-}
-#search {
-  display: block;
-  text-align: center;
 }
 </style>

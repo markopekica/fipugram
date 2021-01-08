@@ -43,7 +43,7 @@
               placeholder="Password"
             />
           </div>
-          <button type="button" @click="phuc" class="btn btn-primary">
+          <button type="button" @click="signup" class="btn btn-primary">
             Submit
           </button>
         </form>
@@ -69,7 +69,7 @@ export default {
   props: {
   },
   methods: {
-    phuc() {
+    signup() {
       /* this.username="phuc" */
       if(this.password == this.passwordRepeat /* && this.password != '' */ ){
         firebase
@@ -87,3 +87,11 @@ export default {
   },
 };
 </script>
+
+
+<style lang="scss">
+form{
+  max-width: 400px;
+  margin: auto;
+}
+</style>
