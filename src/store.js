@@ -1,10 +1,9 @@
 export default {
     searchTerm: '',
     currentUser: null,
-    isThatTrue: '?',
     ime: "",
     prezime: "",
-    cards: [
+    /* cards: [
         {
           title: "1",
           time: "some time",
@@ -29,6 +28,6 @@ export default {
           url: "https://picsum.photos/id/4/400",
           author: "Bob",
         },
-      ]
+      ] */
 
 }
