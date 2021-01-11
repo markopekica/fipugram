@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-0"></div>
-    <div class="col-8">
+    <div class="col-1"></div>
+    <div class="col-6">
       <div class="post-new-div">
         <form
           id="new-post-form"
@@ -29,19 +29,19 @@
             />
           </div>
           <button type="submit" class="btn btn-primary ml-2">Post image</button>
+          <br />
+          <div id="mesago" v-if="successMsg" v-bind:style="{ color: msgColor }">
+            {{ successMsg }}
+          </div>
         </form>
-        <div class="success-message" v-if="successMsg">
-          {{ successMsg }}
-        </div>
       </div>
-
       <instagram-card
         v-for="card in filteredCards"
         :key="card.id"
         :info="card"
       />
       <!--
-      zašto, ali zašto pomišljam na grozote;
+      zašto, te silne frustracije;
       i onda odjednom promjenim
       info=cards
       u
@@ -81,13 +81,15 @@
   </div>
 </template>
 <script>
-// @ is an alias to /src
 import InstagramCard from "@/components/InstagramCard.vue";
 import store from "@/store.js";
 import { db } from "@/firebase";
 
 export default {
   name: "home",
+  components: {
+    InstagramCard,
+  },
   data() {
     return {
       store,
@@ -95,6 +97,7 @@ export default {
       newImageDescription: null,
       newImageUrl: null,
       successMsg: "",
+      msgColor: "",
     };
   },
   mounted() {
@@ -104,19 +107,18 @@ export default {
     getPosts() {
       console.log("dohvat iz baze");
       db.collection("posts")
-        .orderBy('posted_at', 'desc')
+        .orderBy("posted_at", "desc")
         .limit(10)
         .get()
         .then((query) => {
-          this.cards = []
+          this.cards = [];
           query.forEach((doc) => {
             const data = doc.data();
-
             this.cards.push({
               id: doc.id,
               time: data.posted_at,
               description: data.desc,
-              url: data.url
+              url: data.url,
             });
           });
         });
@@ -124,7 +126,6 @@ export default {
     postNewImage() {
       const imageUrl = this.newImageUrl;
       const imageDescription = this.newImageDescription;
-
       //collection = u koju tablicu spremam
       if (imageUrl && imageDescription) {
         db.collection("posts")
@@ -138,10 +139,9 @@ export default {
             console.log("spremljeno", doc);
             this.newImageDescription = "";
             this.newImageUrl = "";
+            this.msgColor = "green";
             this.successMsg = "Your post is saved";
-
-            this.getPosts() //update when new post added
-
+            this.getPosts(); //update when new post added
             setTimeout(() => {
               this.successMsg = "";
             }, 3000);
@@ -150,6 +150,7 @@ export default {
             console.log(e);
           });
       } else {
+        this.msgColor = "red";
         this.successMsg = "Please fill in the fields";
         setTimeout(() => {
           this.successMsg = "";
@@ -161,18 +162,15 @@ export default {
     filteredCards() {
       return this.cards.filter(
         (card) =>
-          card.description.includes(store.searchTerm) /* ||
+          card.description.includes(
+            store.searchTerm
+          ) /* ||
           card.author.includes(store.searchTerm) */
       );
     },
   },
-  components: {
-    InstagramCard,
-  },
 };
 </script>
-
-
 <style lang="scss" scoped>
 .imeprez {
   display: flex;
@@ -188,9 +186,5 @@ export default {
 }
 .form-group {
   margin: 0.5em auto;
-}
-.success-message {
-  margin: -2em auto 2em auto;
-  /* color: green; */
 }
 </style>
